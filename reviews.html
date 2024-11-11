@@ -1,0 +1,542 @@
+<!DOCTYPE html>  
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Beloved Clients' Reviews</title>
+    <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        /* Общие стили */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Светлая тема */
+        body.light-theme {
+            background-color: #f0f0f0;
+            color: #2c3e50;
+        }
+
+        /* Тёмная тема */
+        body.dark-theme {
+            background-color: #2d282a;
+            color: #f0f0f0;
+        }
+
+        header {
+            background-color: #ff62a1;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+
+        nav a {
+            color: #ffffff;
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #d1d1d1;
+        }
+        /* Styles for the multi-step form */
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-theme .form-step.active {
+            background-color: #333;
+            color: #f0f0f0;
+        }
+
+        /* Styles for the rating stars */
+        
+
+        .star {
+            font-size: 2em;
+            color: #ccc; /* Light gray for unselected stars */
+            transition: color 0.3s ease;
+        }
+
+        .star.selected {
+            color: #ff62a1; /* Pink color for selected and hovered stars */
+        }
+
+        /* Стили для секции отзывов */
+        .reviews-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 40px auto;
+            padding: 20px;
+            max-width: 600px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Добавлено для плавного увеличения */
+        }
+
+        body.dark-theme .reviews-container {
+            background-color: #333;
+            color: #f0f0f0;
+        }
+
+        /* Эффект увеличения при наведении */
+        .reviews-container:hover {
+            transform: scale(1.05); /* Увеличение на 5% */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Усиление тени */
+        }
+
+
+        .review {
+            text-align: center;
+            display: none; 
+            transition: all 0.5s ease-in-out;
+        }
+
+        .review.active {
+            display: block;
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .review h3 {
+            margin: 10px 0;
+            color: #ff62a1;
+            font-size: 1.3em;
+        }
+
+        .review p {
+            color: #ff62a1;
+            font-size: 1.1em;
+        }
+
+        .discount {
+            margin-top: 30px;
+            text-align: center;
+            font-weight: bold;
+            color: #ce2f71;
+        }
+
+        .navigation {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .navigation button:hover,
+        .stars .star:hover,
+        .review-form button:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s ease;
+        }
+        
+        body.dark-theme .navigation button {
+        background-color: #f0f0f0; /* Light color for buttons in dark theme */
+        color: #2c3e50;
+        }
+
+        body.dark-theme .navigation button:hover {
+            background-color: #d1d1d1;
+        }
+
+
+        /* Стили для формы */
+        .review-form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        body.dark-theme .review-form {
+            background-color: #333;
+            color: #f0f0f0;
+        }
+
+        .review-form h2 {
+            color: #ff62a1;
+            font-size: 1.8em;
+            border-bottom: 2px solid #ff62a1;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .review-form label {
+            color: #ff62a1;
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        .review-form input,
+        .review-form textarea,
+        .review-form select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ff62a1;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-size: 1em;
+            color: #2c3e50;
+        }
+
+        .review-form button, .navigation button {
+            background-color: #ff62a1;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 10px;
+        }
+
+        footer {
+            background-color: #000;
+            color: #ff62a1;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .social-links a {
+            color: #ff62a1;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        /* Переключатель темы */
+        .theme-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #ff62a1;
+            padding: 10px 20px;
+            border-radius: 20px;
+            color: #fff;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .theme-switch:hover {
+            background-color: #e0568f;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="light-theme">
+
+    <header>
+        <h1>Our Beloved Clients' Reviews</h1>
+        <nav id="nav-menu">
+            <a href="index.html">Home</a>
+            <a href="price.html">Price & Services</a>
+            <a href="locations.html">Contacts & Address</a>
+            <a href="reviews.html">Reviews</a>
+            <a href="aboutus.html">About Us</a>
+            <a href="faq.html">FAQ</a>
+        </nav>
+    </header>
+
+    <div class="theme-switch" onclick="toggleTheme()">Toggle Theme</div>
+
+    <div class="reviews-container" class="fade-in">
+        <!-- Review 1 -->
+        <div class="review active">
+            <h3>John Smith</h3>
+            <p>"Absolutely fantastic service! I feel completely rejuvenated every time I visit. Highly recommended!"</p>
+        </div>
+        <!-- Review 2 -->
+        <div class="review">
+            <h3>Emily Johnson</h3>
+            <p>"Amazing atmosphere and the staff are super professional. Can't wait to come back!"</p>
+        </div>
+        <!-- Review 3 -->
+        <div class="review">
+            <h3>Michael Brown</h3>
+            <p>"The best massage I’ve ever had. I left the spa feeling relaxed and refreshed. 5 stars!"</p>
+        </div>
+        <!-- Review 4 -->
+        <div class="review">
+            <h3>Linda Lee</h3>
+            <p>"Wonderful experience! My skin feels softer and the whole process was heavenly."</p>
+        </div>
+        <!-- Review 5 -->
+        <div class="review">
+            <h3>James Wilson</h3>
+            <p>"Professional and relaxing environment. I’ve recommended this place to all my friends."</p>
+        </div>
+        <!-- Review 6 -->
+        <div class="review">
+            <h3>Sarah Davis</h3>
+            <p>"An unforgettable experience. Will definitely come back for more treatments."</p>
+        </div>
+
+        <div class="navigation button">
+            <button onclick="prevReview()">Previous</button>
+            <button onclick="nextReview()">Next</button>
+        </div>
+        <div class="discount">
+            <p>Leave a review and get <strong>10% off</strong> your first visit!</p>
+        </div>
+    </div>
+
+    <div class="review-form" class="fade-in">
+        <h2>Leave a Review</h2>
+
+        <!-- Error message -->
+        <p class="error-message" id="error-message"></p>
+
+        <!-- Step 1: Name Input -->
+        <div class="form-step active" id="step-1">
+            <label for="name">Your Name:</label><br>
+            <input type="text" id="name" name="name" required> <br>
+        </div>
+
+        <!-- Step 2: Service Selection -->
+        <div class="form-step" id="step-2">
+            <label for="service">Preferred Service:</label><br>
+            <select id="service" name="service" required>
+                <option value="">Select Service</option>
+                <option value="massage">Full Body Treatment</option>
+                <option value="facial">Facial Treatment</option>
+                <option value="back-treatment">Back Treatment</option>
+                <option value="foot-treatment">Foot Treatment</option>
+            </select> <br>
+        </div>
+
+        <!-- Step 3: Star Rating -->
+        <div class="form-step" id="step-3">
+            <p>Rate Us:</p>
+            <div class="stars" id="stars">
+                <span class="star" data-value="1">&#9733;</span>
+                <span class="star" data-value="2">&#9733;</span>
+                <span class="star" data-value="3">&#9733;</span>
+                <span class="star" data-value="4">&#9733;</span>
+                <span class="star" data-value="5">&#9733;</span>
+            </div>
+        </div>
+
+        <!-- Step 4: Review Text -->
+        <div class="form-step" id="step-4">
+            <label for="review">Your Review:</label><br>
+            <textarea id="review" name="review" rows="5" required></textarea> <br>
+        </div>
+
+        <div class="navigation">
+            <button id="prevBtn" onclick="prevStep()">Back</button>
+            <button id="nextBtn" onclick="nextStep()">Next</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 ICON Beauty</p>
+        <div class="social-links">
+            <a href="https://www.instagram.com/arzhnchk?igsh=dWZiNjVpNDRvMDcw">Aruzhan</a> |
+            <a href="https://www.instagram.com/aishvrz?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">Aisha</a> |
+            <a href="https://www.instagram.com/_ainissaaa_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">Ainissa</a>
+        </div>
+        <p>Made with love</p>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('dark-theme');
+            document.body.classList.toggle('light-theme');
+        }
+
+        // Variables for the multi-step form
+        let currentStep = 0;
+        const steps = document.querySelectorAll('.form-step');
+        const nextBtn = document.getElementById('nextBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const errorMessage = document.getElementById('error-message');
+
+        function showStep(step) {
+            steps.forEach((s, index) => {
+                s.classList.remove('active');
+                if (index === step) {
+                    s.classList.add('active');
+                }
+            });
+
+            // Update button visibility
+            prevBtn.style.display = step === 0 ? 'none' : 'inline';
+            nextBtn.textContent = step === steps.length - 1 ? 'Submit' : 'Next';
+        }
+
+        function validateStep(step) {
+            errorMessage.textContent = ''; 
+
+            if (step === 0) {
+                const name = document.getElementById('name').value.trim();
+                if (name === '') {
+                    errorMessage.textContent = 'Please enter your name.';
+                    return false;
+                }
+            }
+
+            if (step === 1) {
+                const service = document.getElementById('service').value;
+                if (service === '') {
+                    errorMessage.textContent = 'Please select a service.';
+                    return false;
+                }
+            }
+
+            if (step === 2) {
+                const selectedStar = document.querySelector('.star.selected');
+                if (!selectedStar) {
+                    errorMessage.textContent = 'Please provide a rating.';
+                    return false;
+                }
+            }
+
+            if (step === 3) {
+                const review = document.getElementById('review').value.trim();
+                if (review === '') {
+                    errorMessage.textContent = 'Please write a review.';
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        function nextStep() {
+            if (validateStep(currentStep)) {
+                if (currentStep < steps.length - 1) {
+                    currentStep++;
+                    showStep(currentStep);
+                } else {
+                    alert("Review submitted!");
+                    
+                }
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 0) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        }
+
+        // Initializing the first step
+        showStep(currentStep);
+
+        // Star rating functionality
+        const stars = document.querySelectorAll('.star');
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                const rating = this.getAttribute('data-value');
+                stars.forEach(s => s.classList.remove('selected'));
+                this.classList.add('selected');
+
+                // Highlight selected stars
+                stars.forEach((s, i) => {
+                    if (i < rating) {
+                        s.classList.add('selected');
+                    }
+                });
+            });
+        });
+
+        // Reviews navigation
+        let currentReview = 0;
+        const reviews = document.querySelectorAll('.review');
+
+        function showReview(index) {
+            reviews.forEach((review, i) => {
+                review.classList.remove('active');
+                if (i === index) {
+                    review.classList.add('active');
+                }
+            });
+        }
+
+        function nextReview() {
+            currentReview = (currentReview + 1) % reviews.length;
+            showReview(currentReview);
+        }
+
+        function prevReview() {
+            currentReview = (currentReview - 1 + reviews.length) % reviews.length;
+            showReview(currentReview);
+        }
+
+        // Keyboard Navigation
+        const menuItems = document.querySelectorAll('#nav-menu a');
+        let currentIndex = 0;
+        menuItems[currentIndex].focus();
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'ArrowRight') {
+                currentIndex = (currentIndex + 1) % menuItems.length;
+                menuItems[currentIndex].focus();
+            } else if (e.key === 'ArrowLeft') {
+                currentIndex = (currentIndex - 1 + menuItems.length) % menuItems.length;
+                menuItems[currentIndex].focus();
+            }
+        });
+
+        function showReview(index) {
+            reviews.forEach((review, i) => {
+                review.classList.remove('active', 'inactive');
+                review.classList.add(i === index ? 'active' : 'inactive');
+            });
+        }
+
+        function toggleTheme() {
+            const isDarkTheme = document.body.classList.toggle('dark-theme');
+            document.body.classList.toggle('light-theme', !isDarkTheme);
+            localStorage.setItem('theme', isDarkTheme ? 'dark-theme' : 'light-theme');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.body.classList.add(savedTheme);
+            } else {
+                document.body.classList.add('light-theme');
+            }
+        });
+
+    </script>
+</body>
+</html>

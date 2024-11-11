@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPA Salon FAQ</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Day Theme */
+        body.light-theme {
+            background-color: #f0f0f0;
+            color: #2c3e50;
+        }
+
+        /* Night Theme */
+        body.dark-theme {
+            background-color: #2d282a;
+            color: #f0f0f0;
+        }
+
+        header {
+            background-color: #ff62a1;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+
+        nav a {
+            color: #ffffff;
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #d1d1d1;
+        }
+
+        /* Theme Toggle Switch */
+        .theme-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #ff62a1;
+            padding: 5px 15px;
+            border-radius: 20px;
+            color: #fff;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .theme-switch:hover {
+            background-color: #e0568f;
+        }
+
+        /* FAQ Section Styling */
+        main h2 {
+            color: #ff62a1;
+            font-size: 1.8em;
+            border-bottom: 2px solid #ff62a1;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        article, aside, section {
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 800px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-theme article, body.dark-theme aside, body.dark-theme section {
+            background-color: #333;
+            color: #f0f0f0;
+        }
+
+        
+        article:hover, aside:hover, section:hover {
+            transform: scale(1.03);
+        }
+
+        details {
+            margin-bottom: 15px;
+        }
+
+        summary {
+            font-weight: bold;
+            cursor: pointer;
+            color: #ff62a1;
+        }
+
+        details p {
+            margin-top: 10px;
+            color: #333;
+        }
+
+        body.dark-theme details p {
+            color: #ddd;
+        }
+
+        hr {
+            border: 0.5px solid #ccc;
+            margin: 10px 0;
+        }
+
+        /* Dialog Styling */
+        dialog {
+            width: 90%;
+            max-width: 500px;
+            padding: 20px;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.5s ease; /* Анимация для открытия */
+        }
+
+        dialog::backdrop {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Button Styling */
+        button {
+            background-color: #ff62a1;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #e0568f;
+        }
+
+        button:focus {
+            outline: none;
+            box-shadow: 0 0 5px #ff62a1;
+        }
+
+        /* Input and Textarea Styling */
+        form input, form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 1em;
+            color: #333;
+        }
+
+        body.dark-theme form input, body.dark-theme form textarea {
+            background-color: #444;
+            color: #f0f0f0;
+            border: 1px solid #777;
+        }
+        /* Footer */
+        footer {
+            background-color: #000;
+            color: #ff62a1;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .social-links a {
+            color: #ff62a1;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    </style>
+</head>
+<body class="light-theme">
+    <header>
+        <h1>Frequently Asked Questions</h1>
+        <nav id="nav-menu">
+            <a href="index.html">Home</a>
+            <a href="price.html">Price & Services</a>
+            <a href="locations.html">Contacts & Address</a>
+            <a href="reviews.html">Reviews</a>
+            <a href="aboutus.html">About Us</a>
+            <a href="faq.html">FAQ</a>
+        </nav>
+    </header>
+
+    <div class="theme-switch" onclick="toggleTheme()">Toggle Theme</div>
+
+    <main>
+        <article>
+            <h2>General Questions</h2>
+            <details>
+                <summary>What should I bring to my appointment?</summary>
+                <hr>
+                <p>We provide all the necessary amenities, such as towels and robes. However, if you have any specific needs or preferences, feel free to bring your own items, such as comfortable clothing.</p>
+            </details>
+
+            <details>
+                <summary>How early should I arrive for my appointment?</summary>
+                <hr>
+                <p>We recommend arriving at least 15 minutes before your scheduled appointment time to allow for a smooth check-in process and to help you relax before your treatment begins.</p>
+            </details>
+
+            <details>
+                <summary>Can I cancel or reschedule my appointment?</summary>
+                <hr>
+                <p>Yes, you can cancel or reschedule your appointment up to 24 hours in advance. Cancellations made within 24 hours of the appointment time may be subject to a cancellation fee.</p>
+            </details>
+        </article>
+
+        <article>
+            <h2>Service-Related Questions</h2>
+            <details>
+                <summary>What types of massages do you offer?</summary>
+                <hr>
+                <p>We offer a variety of massages, including Swedish, deep tissue, hot stone, and aromatherapy massages. Each massage is tailored to your individual needs.</p>
+            </details>
+
+            <details>
+                <summary>Do you have services for couples?</summary>
+                <hr>
+                <p>Yes, we offer special packages for couples, including side-by-side massages and facials. Please inquire about availability when booking your appointment.</p>
+            </details>
+
+            <details>
+                <summary>What products do you use for facials?</summary>
+                <hr>
+                <p>We use high-quality, natural skincare products that are suitable for all skin types. Our specialists will choose the best products for your skin's needs.</p>
+            </details>
+        </article>
+
+        <article>
+            <h2>Payment and Booking Questions</h2>
+            <details>
+                <summary>What payment methods do you accept?</summary>
+                <hr>
+                <p>We accept all major credit cards, cash, and mobile payments. We do not accept checks.</p>
+            </details>
+
+            <details>
+                <summary>Do you offer gift cards?</summary>
+                <hr>
+                <p>Yes, we offer gift cards in various denominations. You can purchase them online or at our front desk.</p>
+            </details>
+
+            <details>
+                <summary>How do I book an appointment?</summary>
+                <hr>
+                <p>You can book an appointment online through our website, by phone, or by visiting us in person. We recommend booking in advance to secure your preferred time.</p>
+            </details>
+        </article>
+
+        <aside>
+            <h3>Additional Resources</h3>
+            <hr>
+            <p>For more information on our services and pricing, check out the <a href="price.html">Price & Services</a> page.</p>
+        </aside>
+
+        <section>
+            <h2>Can't Find Your Question?</h2>
+            <button id="openDialog">Ask Your Own Question</button>
+            <dialog id="faqDialog">
+                <form method="dialog">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                    <label for="question">Your Question:</label>
+                    <textarea id="question" name="question" required></textarea>
+                    <button type="submit">Submit</button>
+                </form>
+                <button id="closeDialog">Close</button>
+            </dialog>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 ICON Beauty</p>
+        <div class="social-links">
+            <a href="https://www.instagram.com/arzhnchk?igsh=dWZiNjVpNDRvMDcw">Aruzhan</a> |
+            <a href="https://www.instagram.com/aishvrz?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">Aisha</a> |
+            <a href="https://www.instagram.com/_ainissaaa_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">Ainissa</a>
+        </div>
+        <p>Made with love</p>
+    </footer>
+
+    <script>
+        // Theme Toggle Functionality
+        function toggleTheme() {
+            document.body.classList.toggle('dark-theme');
+            document.body.classList.toggle('light-theme');
+        }
+
+        // Keyboard Navigation for Menu
+        const menuItems = document.querySelectorAll('#nav-menu a');
+        let currentIndex = 0;
+        menuItems[currentIndex].focus();
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'ArrowRight') {
+                currentIndex = (currentIndex + 1) % menuItems.length;
+                menuItems[currentIndex].focus();
+            } else if (e.key === 'ArrowLeft') {
+                currentIndex = (currentIndex - 1 + menuItems.length) % menuItems.length;
+                menuItems[currentIndex].focus();
+            }
+        });
+
+        function toggleTheme() {
+            const isDarkTheme = document.body.classList.toggle('dark-theme');
+            document.body.classList.toggle('light-theme', !isDarkTheme);
+            localStorage.setItem('theme', isDarkTheme ? 'dark-theme' : 'light-theme');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.body.classList.add(savedTheme);
+            } else {
+                document.body.classList.add('light-theme');
+            }
+        });
+
+        // Dialog Box Functionality
+        const dialog = document.getElementById('faqDialog');
+        const openDialog = document.getElementById('openDialog');
+        const closeDialog = document.getElementById('closeDialog');
+
+        openDialog.addEventListener('click', () => dialog.showModal());
+        closeDialog.addEventListener('click', () => dialog.close());
+    </script>
+</body>
+</html>

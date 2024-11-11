@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spa Salon - Pricing</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body.light-theme {
+            background-color: #f4f4f4;
+            color: #2c3e50;
+        }
+
+        body.dark-theme {
+            background-color: #2d282a;
+            color: #f4f4f4;
+        }
+
+        header {
+            background-color: #ff62a1;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #2d282a;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #ff62a1;
+            font-size: 1.8em;
+            border-bottom: 2px solid #ff62a1;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        section {
+            background-color: #fff;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-theme section {
+            background-color: #333;
+            color: #f0f0f0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #ff62a1;
+            color: white;
+        }
+
+        .slider {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto 20px auto; 
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            height: 400px;
+            padding: 10px; 
+            background-color: #f9f9f9; 
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            padding: 10px; 
+        }
+
+        .slide img {
+            width: 65%; 
+            height: auto;
+            border-radius: 8px;
+            margin-right: 15px; 
+        }
+
+        .caption {
+            width: 35%; 
+            padding-left: 10px;
+            font-size: 1em;
+            color: #333;
+            text-align: left;
+        }
+
+        
+        body.dark-theme .slider {
+            background-color: #333; 
+            color: #f0f0f0; 
+        }
+
+        body.dark-theme .caption {
+            color: #f0f0f0; 
+        }
+
+        body.dark-theme .slide img {
+            border: 2px solid #444; 
+        }
+
+
+
+
+        .offers {
+            display: flex;
+            gap: 15px;
+            justify-content: space-between;
+        }
+
+        .offer-card {
+            flex: 1;
+            background-color: #ff62a1;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        
+        .offer-card:hover {
+            transform: scale(1.05); 
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); 
+            cursor: pointer;
+        }
+
+
+        footer {
+            background-color: #000;
+            color: #ff62a1;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .social-links a {
+            color: #ff62a1;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            color: #fff;
+        }
+
+        .theme-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #ff62a1;
+            padding: 5px 15px;
+            border-radius: 20px;
+            color: #fff;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .theme-switch:hover {
+            background-color: #e0568f;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+
+        
+    </style>
+</head>
+<body class="light-theme">
+    <header>
+        <h1>Spa Salon Pricing</h1>
+        <nav id="nav-menu">
+            <a href="index.html">Home</a>
+            <a href="price.html">Price & Services</a>
+            <a href="locations.html">Contacts & Address</a>
+            <a href="reviews.html">Reviews</a>
+            <a href="aboutus.html">About Us</a>
+            <a href="faq.html">FAQ</a>
+        </nav>
+    </header>
+
+    <div class="theme-switch" onclick="toggleTheme()">Toggle Theme</div>
+    
+
+    <main>
+        <h2>Our Services and Prices</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Service</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Body Harmony</td>
+                    <td>Relaxing Oil Massage</td>
+                    <td>20,000tg</td>
+                </tr>
+                <tr>
+                    <td>Thai Miracle</td>
+                    <td>Traditional Thai Massage</td>
+                    <td>18,000tg</td>
+                </tr>
+                <tr>
+                    <td>Gentleness and Peace</td>
+                    <td>Relaxing Oil Massage & Foot Massage</td>
+                    <td>17,000tg</td>
+                </tr>
+                <tr>
+                    <td>Awakening</td>
+                    <td>Traditional Thai Massage & Foot Massage</td>
+                    <td>16,000tg</td>
+                </tr>
+                <tr>
+                    <td>Energy of Thailand</td>
+                    <td>Hot Stone Therapy</td>
+                    <td>25,000tg</td>
+                </tr>
+                <tr>
+                    <td>Grace</td>
+                    <td>Back Massage with Herbal Balm</td>
+                    <td>17,000tg</td>
+                </tr>
+                <tr>
+                    <td>Foot Relax</td>
+                    <td>Thai Foot Massage</td>
+                    <td>14,000tg</td>
+                </tr>
+                <tr>
+                    <td>Clear Mind</td>
+                    <td>Neck and Foot Massage</td>
+                    <td>22,000tg</td>
+                </tr>
+                <tr>
+                    <td>Pregnancy Massage</td>
+                    <td>Relaxing Thai Massage with Herbs</td>
+                    <td>23,000tg</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="slider">
+            <div class="slides">
+                <div class="slide">
+                    <img src="relaxation.jpg" alt="Relaxing Massage">
+                    <p class="caption">Experience pure relaxation with our unique massages.</p>
+                </div>
+                <div class="slide">
+                    <img src="therapist.jpg" alt="Professional Therapist">
+                    <p class="caption">Our professional therapists provide excellent care.</p>
+                </div>
+                <div class="slide">
+                    <img src="spa.jpg" alt="Luxurious Spa">
+                    <p class="caption">Enjoy a serene environment at our luxurious spa.</p>
+                </div>
+            </div>
+        </div>
+
+        <section>
+            <h2>Bonus Card System</h2>
+            <p>Join our membership program and get up to 15% discount with our Bonus Card. Collect points with every visit and enjoy exclusive offers!</p>
+        </section>
+
+        <section>
+            <h2>Special Offers</h2>
+            <div class="offers">
+                <div class="offer-card">
+                    <h3>Comfort Relax</h3>
+                    <p>Get 10% off on your first visit! Relax with our signature massage.</p>
+                </div>
+                <div class="offer-card">
+                    <h3>Premium Spa</h3>
+                    <p>Buy a package of 5 treatments and get 1 free. The ultimate relaxation experience!</p>
+                </div>
+                <div class="offer-card">
+                    <h3>Luxury Retreat</h3>
+                    <p>Book any massage on weekends and enjoy 20% off!</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 ICON Beauty</p>
+        <div class="social-links">
+            <a href="https://www.instagram.com/arzhnchk?igsh=dWZiNjVpNDRvMDcw">Aruzhan</a> |
+            <a href="https://www.instagram.com/aishvrz?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">Aisha</a> |
+            <a href="https://www.instagram.com/_ainissaaa_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">Ainissa</a>
+        </div>
+        <p>Made with love</p>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('dark-theme');
+            document.body.classList.toggle('light-theme');
+        }
+        const menuItems = document.querySelectorAll('#nav-menu a');
+        let currentIndex = 0;
+        menuItems[currentIndex].focus();
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'ArrowRight') {
+                currentIndex = (currentIndex + 1) % menuItems.length;
+                menuItems[currentIndex].focus();
+            } else if (e.key === 'ArrowLeft') {
+                currentIndex = (currentIndex - 1 + menuItems.length) % menuItems.length;
+                menuItems[currentIndex].focus();
+            }
+        });
+
+        let currenIndex = 0;
+
+        function showSlide(index) {
+            const slides = document.querySelector('.slides');
+            const totalSlides = slides.children.length;
+            if (index >= totalSlides) currenIndex = 0;
+            if (index < 0) currenIndex = totalSlides - 1;
+            slides.style.transform = `translateX(-${currenIndex * 100}%)`;
+        }
+
+        function nextSlide() {
+            currenIndex++;
+            showSlide(currenIndex);
+        }
+
+        setInterval(nextSlide, 3000); 
+
+        function toggleTheme() {
+            const isDarkTheme = document.body.classList.toggle('dark-theme');
+            document.body.classList.toggle('light-theme', !isDarkTheme);
+            localStorage.setItem('theme', isDarkTheme ? 'dark-theme' : 'light-theme');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.body.classList.add(savedTheme);
+            } else {
+                document.body.classList.add('light-theme');
+            }
+        });
+
+
+    </script>
+
+    <script src="scripts.js"></script>
+
+</body>
+</html>
